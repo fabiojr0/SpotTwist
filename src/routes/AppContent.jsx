@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { fetchInfos } from '../codes/fetchInfos.jsx';
 import { checkToken } from '../codes/checkToken.jsx';
 import Settings from './Settings.jsx';
+import NotFound from './NotFound.jsx';
 
 const routeNames = {
   '/': 'Home',
@@ -70,6 +71,7 @@ export const AppContent = ({}) => {
             <Route path="/TopArtists" element={<TopArtists accessToken={accessToken}/>} />
             <Route path="/Auth" element={<Auth />} />
             <Route path="/Settings" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
         <div className='h-16 bg-transparent'></div>
     </div>
