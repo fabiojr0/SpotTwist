@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { fetchInfos } from '../codes/fetchInfos';
-import { SpotifyLogo } from '@phosphor-icons/react';
 import Track from '../components/Track';
 import Button from '../components/Button';
+import Artist from '../components/Artist';
 
-function TopTracks({accessToken}) {
-    const [userTopTracks, setUserTopTracks] = useState();
-    const [userTopTracks2, setUserTopTracks2] = useState();
+function TopArtists({accessToken}) {
+    const [userTopArtists, setUserTopArtists] = useState();
+    const [userTopArtists2, setUserTopArtists2] = useState();
     const [timeRange, setTimeRange] = useState("long_term");
     const [selectedButton, setSelectedButton] = useState("long_term");
 
     useEffect(() => {
             fetchInfos(
-              `https://api.spotify.com/v1/me/top/${"tracks"}?limit=${49}&time_range=${timeRange}`,
+              `https://api.spotify.com/v1/me/top/${"artists"}?limit=${49}&time_range=${timeRange}`,
               accessToken
             )
               .then((data) => {
@@ -20,13 +20,13 @@ function TopTracks({accessToken}) {
                 const ids = data.items.map((item) => {
                   return item.id
                 })
-                fetchInfos(`https://api.spotify.com/v1/me/tracks/contains?ids=${ids.join(',')}`,accessToken)
+                fetchInfos(`https://api.spotify.com/v1/me/following/contains?ids=${ids.join(',')}&type=${"artist"}`,accessToken)
                 .then((follow) => {
                   data.items.map((item,index) => {
                     item.follow = follow[index]
                   })
                   
-                  setUserTopTracks(data);
+                  setUserTopArtists(data);
                 })
                 .catch((error) => {
                   console.error("Erro ao buscar informações da API:", error);
@@ -37,18 +37,18 @@ function TopTracks({accessToken}) {
                 // Lide com o erro de acordo com suas necessidades
               });
 
-            fetchInfos(`https://api.spotify.com/v1/me/top/${"tracks"}?offset=${49}&limit=${50}&time_range=${timeRange}`,accessToken)
+            fetchInfos(`https://api.spotify.com/v1/me/top/${"artists"}?offset=${49}&limit=${50}&time_range=${timeRange}`,accessToken)
             .then(data => {
               // Faça o que precisa com os dados aqui
               const ids = data.items.map((item) => {
                 return item.id
               })
-              fetchInfos(`https://api.spotify.com/v1/me/tracks/contains?ids=${ids.join(',')}`,accessToken)
+              fetchInfos(`https://api.spotify.com/v1/me/following/contains?ids=${ids.join(',')}&type=${"artist"}`,accessToken)
               .then((follow) => {
                 data.items.map((item,index) => {
                   item.follow = follow[index]
                 })
-                setUserTopTracks2(data)
+                setUserTopArtists2(data)
               })
               .catch((error) => {
                 console.error("Erro ao buscar informações da API:", error);
@@ -81,14 +81,14 @@ function TopTracks({accessToken}) {
               </Button>
             </div>
             <div className='flex flex-col p-2'>
-                {userTopTracks && userTopTracks.items.map((item,index) => {
+                {userTopArtists && userTopArtists.items.map((item,index) => {
                     return (
-                      <Track item={item} index={index + 1} key={item.id} />
+                      <Artist item={item} index={index + 1} key={item.id} />
                     );
                 })}
-                {userTopTracks2 && userTopTracks2.items.map((item,index) => {
+                {userTopArtists2 && userTopArtists2.items.map((item,index) => {
                     return (
-                        <Track item={item} index={index+50} key={item.id}/>
+                        <Artist item={item} index={index+50} key={item.id}/>
                     )
                 })}
             </div>
@@ -96,4 +96,4 @@ function TopTracks({accessToken}) {
     )
 }
 
-export default TopTracks;
+export default TopArtists;
