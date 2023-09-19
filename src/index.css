@@ -6,3 +6,22 @@
   font-family: 'Poppins' ,sans-serif;
   background-color: #000000;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #191414;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1ED760;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1DB954;
+}

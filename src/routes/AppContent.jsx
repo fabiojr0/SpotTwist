@@ -57,24 +57,50 @@ export const AppContent = ({}) => {
     }, [accessToken]);
 
     return (
-    <div>
-        <Navbar/>
-        <div className="flex items-center justify-between p-2">
+      <div className="md:flex-row flex flex-col md:gap-2 md:p-2 w-screen md:h-screen">
+        <Navbar />
+        <div className="flex flex-col md:bg-blackfy md:rounded-lg w-full h-full md:overflow-y-scroll">
+          <div className="flex items-center justify-between p-2 w-full">
+            <h1 className="text-zinc-50 text-2xl font-bold">
+              {currentRouteName}
+            </h1>
+            {isValid ? (
+              userInfos && (
+                <Link to={"/Settings"}>
+                  <img
+                    src={userInfos.images[0].url}
+                    className="rounded-full h-10 w-10 object-cover"
+                  />
+                </Link>
+              )
+            ) : (
+              <Link
+                to={"/Auth"}
+                className="text-zinc-50 bg-lightGreen p-2 rounded-full flex items-center gap-1"
+              >
+                <SpotifyLogo weight="fill" className="inline text-2xl" />
+                Login
+              </Link>
+            )}
+          </div>
 
-            <h1 className='text-zinc-50 text-2xl font-bold'>{currentRouteName}</h1>
-            {isValid ? userInfos && <Link to={"/Settings"}><img src={userInfos.images[0].url} className="rounded-full h-10 w-10 object-cover"/></Link> : <Link to={"/Auth"} className="text-zinc-50 bg-lightGreen p-2 rounded-full flex items-center gap-1"><SpotifyLogo weight="fill" className="inline text-2xl"/>Login</Link>}
-        </div>
-            
-        <Routes>
-            <Route path="/" element={<Home accessToken={accessToken}/>} />
-            <Route path="/TopTracks" element={<TopTracks accessToken={accessToken}/>} />
-            <Route path="/TopArtists" element={<TopArtists accessToken={accessToken}/>} />
+          <Routes>
+            <Route path="/" element={<Home accessToken={accessToken} />} />
+            <Route
+              path="/TopTracks"
+              element={<TopTracks accessToken={accessToken} />}
+            />
+            <Route
+              path="/TopArtists"
+              element={<TopArtists accessToken={accessToken} />}
+            />
             <Route path="/Auth" element={<Auth />} />
             <Route path="/Settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
-        </Routes>
-        <div className='h-16 bg-transparent'></div>
-    </div>
-  );
+          </Routes>
+        </div>
+        <div className="h-16 bg-transparent md:hidden"></div>
+      </div>
+    );
 };
 

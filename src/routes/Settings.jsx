@@ -11,7 +11,7 @@ function Settings() {
     }
 
     return (
-        <div className='p-2 w-screen flex'>
+        <div className='p-2 flex'>
             <Button onClick={() => logout()} selected>Logout<SpotifyLogo weight='fill'/></Button>
         </div>
     )

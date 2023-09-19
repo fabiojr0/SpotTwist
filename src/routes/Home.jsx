@@ -36,11 +36,11 @@ function Home({accessToken}) {
 
     return (
     <div>
-      <div className="w-screen">
+      <div className="w-full">
         {myInfos && <h1 className="text-zinc-50 font-semibold p-2">{myInfos.display_name}'s Playlists</h1> }
         
         {myPlaylists &&
-        <div className="grid grid-cols-2 gap-2 p-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-2 sm:gap-4 md:grid-cols-5 md:gap-6 md:px-4">
           {myPlaylists.items.map((item) => {
             return (<Playlist item={item} key={item.name}/>)
           }) }

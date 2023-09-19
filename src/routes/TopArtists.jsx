@@ -68,7 +68,7 @@ function TopArtists({accessToken}) {
     }
 
     return (
-        <div>
+        <div className=''>
             <div className='flex items-center gap-2 px-2 py-1'>
               <Button selected={selectedButton === "short_term"} onClick={() => handleClickButton("short_term")}>
                 4 Weeks
