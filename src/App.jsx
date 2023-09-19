@@ -4,7 +4,7 @@ import { AppContent } from './routes/AppContent';
 
 const App = () => {
   return (
-    <Router basename="/SpotTwist">
+    <Router >
       <AppContent />
     </Router>
   );
